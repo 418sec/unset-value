@@ -29,7 +29,7 @@ module.exports = function unset(obj, prop) {
       last = segs.pop().slice(0, -1) + '.' + last;
     }
     while (segs.length) obj = obj[prop = segs.shift()];
-    return (delete obj[last]);
+    return (obj != Object.prototype && delete obj[last]);
   }
   return true;
 };
