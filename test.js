@@ -66,6 +66,12 @@ describe('unset', function () {
       unset();
     }).should.throw('expected an object.');
   });
+
+  it('should not pollute object prototype:', function () {
+    Object.prototype.prop = 1;
+    unset({}, '__proto__.prop');
+    Object.prototype.should.hasOwnProperty('prop');
+  });
 });
 
 describe('input path as array paths', function () {
@@ -121,5 +127,11 @@ describe('input path as array paths', function () {
     (function () {
       unset();
     }).should.throw('expected an object.');
+  });
+
+  it('should not pollute object prototype:', function () {
+    Object.prototype.prop = 1;
+    unset({}, ['constructor', 'prototype', 'prop']);
+    Object.prototype.should.hasOwnProperty('prop');
   });
 });
