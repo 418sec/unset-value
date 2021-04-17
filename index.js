@@ -24,6 +24,9 @@ module.exports = function unset(obj, prop) {
 
   if (has(obj, prop)) {
     var segs = isArray ? prop.slice() : prop.split('.');
+    if (segs.indexOf('__proto__') !== -1 || segs.indexOf('constructor') !== -1 || segs.indexOf('prototype') !== -1) {
+      return false;
+    }
     var last = segs.pop();
     while (segs.length && segs[segs.length - 1].slice(-1) === '\\') {
       last = segs.pop().slice(0, -1) + '.' + last;
